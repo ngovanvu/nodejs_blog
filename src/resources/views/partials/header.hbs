@@ -1,18 +1,37 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">F8 Education</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div class="container header">
+  <div class="nav_wrapper  d-flex align-items-center justify-content-between">
+    <div class="logo">
+     <img src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png" alt="logo" >
+     <h5><a class="text_header" href="/">F8 Education</a></h5>
+  </div>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-    </ul>
+    <div class="menu">
+      <ul>
+        <li><a href="/">Trang Chủ</a></li>
+        <li><a href="/me/stored/courses">Khóa Học Của Tôi</a></li>
+        <li><a  href="/courses/create">Đăng Khóa Học</a></li>
+        <li><a  href="/me/trash/courses">Xóa Và Khôi Phục Khóa Học</a></li>
+      </ul>
+    </div>
+
+    
+    <div class="nav_right">
+     <div class="nav-item dropdown">
+        <a class="user nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="https://yt3.ggpht.com/ytc/AMLnZu_SpYt3-cxyQMU6k7_0SZKm-h89cHzy2S1tuX2sZQ=s108-c-k-c0x00ffffff-no-rj" alt="" class="user-avatar">
+         <span>Văn Vũ</span>          
+       </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="user dropdown-item" href="/courses/create">Đăng Khóa Học</a>
+          <div class=" dropdown-divider"></div>
+          <a class="user dropdown-item" href="/me/stored/courses">Khóa Học Của Tôi</a>
+          <a class="user dropdown-item" href="/me/stored/news">Bài Viết Của Tôi</a>
+          <div class="dropdown-divider"></div>
+          <a class="user dropdown-item" href="#">Đăng Xuất</a>
+        </div>
+      </div>
+    </div>
 
   </div>
-</nav>
+
+</div>

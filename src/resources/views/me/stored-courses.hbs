@@ -1,0 +1,157 @@
+ {{!-- vì là hành vi xóa nên cần gửu lên server nên sẽ ở tạng thái post --}}
+<form class="stored-courses-form table mt-4" name="Container-form" method="POST"  action="/courses/handle-form-actions">
+   <div>
+    <div class="stored-courses-headering">
+       <h3>Khóa Học Của Tôi</h3>
+    <a href="/me/trash/courses"><i class="fa-sharp fa-solid fa-trash"></i> Thùng rác ({{deletedCount}})</a>
+    </div>
+
+    <div class="stored-check mt-4 d-flex align-items-center">
+      <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="" id="checkbox-all">
+      <label class="form-check-label" for="checkbox-all">
+        Chọn Tất Cả
+      </label>
+    </div>
+
+        
+     <select class="stored-select form-control form-control-sm checkbox-select-all-options" name="action" required>
+      <option value="">Chọn Hành Động</option>
+      <option value="delete">Xóa</option>
+    </select>
+
+    <button class="stored-button btn btn-primary btn-sm check-all-submit-btn" disabled>Thực Hiện</button>
+   </div>
+ </div>
+    <table class="table">
+        <thead >
+            <tr>
+                <th scope="col" colspan="2">#</th>
+                <th scope="col">Tên Khóa Học</th>
+                <th scope="col">Trình Độ</th>
+                <th scope="col" colspan="3">Thời Gian Tạo</th>
+            </tr>
+        </thead>
+        <tbody class="stored-tbody">
+            {{#each courses}}
+            <tr>
+              <td>
+                <div class="form-check">
+                  {{!-- lúc chọn nó sẽ trả về mảng dữ liệu courseIds[id] --}}
+                  <input class="form-check-input" type="checkbox" name="courseIds[]" value="{{this._id}}">
+                </div>
+              </td>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td>{{this.level}}</td>
+                <td>{{this.createdAt}}</td>
+                <td><a href="/courses/{{this._id}}/edit" class="btn-edit btn btn-link">Edit</a> 
+                 <a href="" class="btn-del btn btn-link "data-toggle="modal" data-id="{{this._id}}" data-target="#delete-course-modal">Delete</a>
+                 </td>
+            </tr>
+            {{else}}
+            <tr>
+              <td colspan ="5" class="text-center">
+                <div class="d-flex align-items-center justify-content-center">
+                   <h3>Bạn chưa đăng khóa học nào <i class="fa-solid fa-share"></i></h3>
+              <h4><a href="/courses/create">Đăng Khóa Học Ở Đây</a></h4>
+                </div>
+               
+             
+              
+            </td>
+            </tr>
+            {{/each}}
+        </tbody>
+     </table>
+</form>
+
+   {{!-- Confirm delele course Hiển thị cảnh báo--}}
+   <div id="delete-course-modal" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Xóa Khóa Học?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn Chắc Chắn Muốn Xóa Khóa Học Này?</p>
+      </div>
+      <div class="modal-footer">
+        <button id="btn-delete-course-modal" type="button" class="btn btn-danger">Delete</button>
+        <button  type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{{!-- DElete hidden form  --}}
+
+ <form name="delete-course-form" method="POST" ></form>
+
+
+<script>
+  //DOMContentLoaded Khi DOM được tải xong chạy để jquery nó đươc nạp vào
+    document.addEventListener('DOMContentLoaded',function(){
+
+        var courseId; // id khóa học
+        var deleleForm = document.forms['delete-course-form'] // form ở trên phần xóa
+        var btnDeleteCourse = document.getElementById('btn-delete-course-modal')
+
+        {{!-- var containerForm = document.forms['Container-form'] --}}
+         var containerForm = $('form[name = "Container-form"]')
+
+        var checkboxAll = $('#checkbox-all') // nút chọn tất cả
+        var courseItemCheckbox = $('input[name="courseIds[]"]')
+        var checkAllSubmitBtn = $('.check-all-submit-btn') // nút thực hiện disable
+
+
+        // On lắng nghe . hiển thị xóa cảnh báo , khi bấm nút xóa thì nó hiển thị show cảnh báo lấy ra id
+    $('#delete-course-modal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+     courseId = button.data('id'); // lay gia tri id
+    });
+    {{!-- DElete course btn clicked--}}
+    btnDeleteCourse.onclick = function(){
+        deleleForm.action = '/courses/' + courseId + '?_method=DELETE'; // Khi submit thì nó sẽ gửi lên cho form đổi method
+        deleleForm.submit();
+    }
+
+
+    // checkbox all click khi click vào thì isCheckedAll trả về true hoặc false 
+    checkboxAll.change(function() {
+      var isCheckedAll = $(this).prop('checked'); //checkboxAll checked thì nó là true
+        courseItemCheckbox.prop('checked', isCheckedAll) // check chọn tất cả thì check luôn mấy thằng nhỏ
+        renderCheckAllSubmitBtn();
+    })
+    // Course item checkbox changed khi chúng ta checked hết rồi bỏ 1 cái ra thì nó sẽ tắt checked bỏ tất cả
+    courseItemCheckbox.change(function(){
+       var isCheckedAll = courseItemCheckbox.length === $('input[name="courseIds[]"]:checked').length // tổng số lượng của khóa học có bằng tổng số lượng đang check hay k
+      checkboxAll.prop('checked',isCheckedAll) //trả về đây
+        renderCheckAllSubmitBtn();
+
+    })
+
+    // on của jquery nó có chức năng lắng nghe submit trên containerForm
+    // Lắng nghe sự kiện submit của containerForm, sau đó kiểm tra nút checkAllSubmitBtn có disable hay không nếu có thì e.preventDefault() không cho submit 
+    
+
+
+
+    //render lại check all submit button
+    function renderCheckAllSubmitBtn(){
+      var checkedCount = $('input[name="courseIds[]"]:checked').length // hàm đếm số lượng check box để có thể hiển thị nút thực hiện
+      if(checkedCount > 0){ // khi giá trị lớn hơn 0 thì nút thực hiện remove attribute disable và ngược lại
+        checkAllSubmitBtn.removeAttr('disabled', false)
+      }else{
+        checkAllSubmitBtn.removeAttr('disabled', true)
+      }
+    }
+   {{!-- console.log(containerForm) --}}
+})
+</script>
+
+   

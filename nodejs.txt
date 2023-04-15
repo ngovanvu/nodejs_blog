@@ -1,0 +1,19 @@
+npm run watch
+npm start
+
+npm i prettier lint-staged husky
+--------------------------prettier ------------------------------
+"beautiful": "prettier --single-quote --trailing-comma all --tab-width 4 --write src/**/*.{js,json,scss}",
+-------------------------lint-staged------------------------- Lien quan den git cai dat cai nay thi xoa cai tren
+"beautiful": "lint-staged",
+ "lint-staged": {
+    "src/**/*.{js,json,scss}": "prettier --single-quote --trailing-comma all --tab-width 4 --write"
+  },
+--------------------------------------------
+
+phương thức get thì req.query.q (query parametes)
+phương thức post thì req.body(form data)
+
+
+mô hình mvc : khi nhấn submit thì phương thức get nó sẽ được bổ trợ bởi 3 thành phần trung gian(có thể hiểu dispatcher, router, websever) gọi là middle ware
+còn phương thức post thì nó chưa nhận thành phần middle ware nên sẽ phải cài đặt

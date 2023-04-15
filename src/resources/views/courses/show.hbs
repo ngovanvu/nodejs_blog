@@ -1,7 +1,47 @@
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-3">
+            <div class="course-Card">
+                <h5 class="">Học {{course.name}} bước khởi đầu trở thành nhà phát triển web chuyên nghiệp.</h5>
+                <div class="course_link"><a href="/me/stored/courses">Mua Ngay</a></div>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Tổng số {{course.timeCourse}} bài học</li>
+                    <li><i class="fa-solid fa-check"></i> {{course.level}}</li>
+                    <li><i class="fa-solid fa-check"></i> Thời lượng {{course.timeCourse}}giờ{{course.timeCourse}} phút</li>
+                     <li><i class="fa-solid fa-check"></i> Học mọi lúc, mọi nơi</li>
+                </ul>
+            </div>
 
-<div class="content">
-    
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+             <div class="course-Card1">
+                <div class="logo-course">
+                    <img src="https://files.fullstack.edu.vn/f8-prod/user_avatars/1/623d4b2d95cec.png" alt="logo-course" >
+                    <h5><a class="text-course" href="/">F8 Education</a></h5>
+                    <h5>Bạn Cần Những Kiến Thức Cơ Bản Gì Bắt Đầu Học Khóa Này?</h5>
+                </div>
+                <ul>
+                    <li>Các khái niệm, thuật ngữ cốt lõi khi triển khai ứng dụng</li>
+                    <li>Các kiến thức cơ bản, nền móng của ngành IT</li>
+                    <li>Hiểu hơn về cách internet và máy vi tính hoạt động</li>
+                     <li>Học mọi lúc, mọi nơi</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-lg-9">
+            <div class="course_vid">
+           <h1> Cách dễ nhất để học {{course.name}} cho người mới bắt đầu!</h1>
+            <iframe src="https://www.youtube.com/embed/{{course.videoId}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <p>{{course.description}}</p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div id="banner carouselExampleIndicators" class="banner carousel slide" data-ride="carousel">
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -75,25 +115,4 @@
   </a>
 </div>
 </div>
-<div class="product">
-    <h2>Các Khóa Học</h2>
-    <div class="row">
-        {{#each courses}}
-       <div class="product_img col-sm-6 col-lg-4">
-            <a href="/courses/{{this.slug}}">
-            <img src="{{this.image}}" alt="Card image">
-            </a>
-             
-        <div class="card_title">
-            <a href="/courses/{{this.slug}}">
-           <h4>{{this.name}}</h4>
-            <h5>Gía Khóa Học: {{this.price}}</h5>
-            </a>
-            <span>{{this.description}}</span>
-             <a  href="/courses/{{this.slug}}" class="button_card btn btn-primary">Mua Khóa Hoc</a>
-        </div>
-       </div>
-        {{/each}}
-    </div>
-</div>
-</div>
+</div>  
